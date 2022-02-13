@@ -20,9 +20,10 @@ class hashcontroller:
                     hashdone = md5.hexdigest()
                     file_md5_sql.write("\n")
                     file_md5_sql.write("insert into md5 values ('{}','{}');".format(str(hashdone),str(value).rstrip()))
-
+                
+                file_md5_sql.close()
                 file_md5.close()
-                print("export done!,check md5toinsert.sql")
+                print("export done! Check md5toinsert.sql")
 
 
     def generate_sha512_sql(self):
@@ -39,7 +40,8 @@ class hashcontroller:
             file_sha512_sql.write("insert into sha512 values ('{}','{}');\n".format(str(sha512done),str(sha512done).rstrip()))
 
         file_sha512_sql.close()
-        print("export done!,check sha512toinsert.sql")
+        file_sha512.close()
+        print("export done! Check sha512toinsert.sql")
 
         
 
@@ -56,7 +58,8 @@ class hashcontroller:
             file_sha256_sql.write("insert into sha256 values ('{}','{}');\n".format(str(sha256done),str(value).rstrip()))
 
         file_sha256_sql.close()
-        print("export done!,check sha256toinsert.sql")
+        file_sha256.close()
+        print("export done! Check sha256toinsert.sql")
 
     def import_md5_sql(self):
         file_md5 = open(self.file,"r",encoding='utf-8',errors='ignore')
@@ -69,7 +72,7 @@ class hashcontroller:
             
         db_connection.close()
         file_md5.close()
-
+        print("import done!")
 
     def import_sha256_sql(self):
         file_sha256 = open(self.file,"r",encoding='utf-8',errors='ignore')
@@ -82,6 +85,7 @@ class hashcontroller:
             
         db_connection.close()
         file_sha256.close()
+        print("import done!")
 
 
     def import_sha512_sql(self):
@@ -95,3 +99,4 @@ class hashcontroller:
             
         db_connection.close()
         file_sha512.close()
+        print("import done!")
